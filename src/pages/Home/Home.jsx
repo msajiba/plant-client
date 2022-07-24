@@ -1,12 +1,14 @@
 import React from 'react';
 import Login from '../Auth/Login/Login';
+import Banner from './Banner';
+import Inventory from './Inventory';
 
 const Home = () => {
     return (
-        <div>
-            <h3> Home page..</h3>
-            <Login> </Login>
-        </div>
+        <>
+           <Banner> </Banner>
+           <Inventory> </Inventory>
+        </>
     );
 };
 

@@ -9,7 +9,9 @@ import { ToastContainer } from 'react-toastify';
 import {Routes, Route} from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Login from './pages/Auth/Login/Login';
-import Register from './pages/Auth/Login/Register/Register';
+import Register from './pages/Auth/Register/Register';
+import AddNewInventory from './pages/ManageInvenotry/AddNewInventory';
+
 
 function App() {
 
@@ -23,6 +25,7 @@ function App() {
         <Route path='/home' element={<Home />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/register' element={<Register />}></Route>
+        <Route path='/inventory-add' element={<AddNewInventory />}></Route>
       
       </Routes>
       
