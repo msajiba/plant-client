@@ -12,7 +12,7 @@ const Inventory = () => {
             const url = 'http://localhost:5000/plants';
 
             const {data} = await axios.get(url);
-            setItems(data);
+            setItems(data.slice(0,6));
             
         };
         getItems();
@@ -31,7 +31,7 @@ const Inventory = () => {
                             <h3 className='text-center text-info'> Inventory Item </h3>
 
                             {
-                                items.map(item=> <Col md='6' key={item._id}> 
+                                items.map(item=> <Col md='4' key={item._id}> 
                                                         <InventoryShow item={item}> </InventoryShow>
                                                 </Col>)
                             }

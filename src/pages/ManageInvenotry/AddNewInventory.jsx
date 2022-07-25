@@ -6,8 +6,13 @@ import TextField from '@mui/material/TextField';
 import {Container} from 'react-bootstrap';
 import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
+import auth from '../../Firebase/Firebase-init';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const AddNewInventory = () => {
+
+   const [user] = useAuthState(auth);
+   const email = user.email;
 
     const [name, setName] = useState('')
     const [img, setImg] = useState('')
@@ -20,7 +25,7 @@ const AddNewInventory = () => {
     const handleAddItem = async(e) =>{
         e.preventDefault();
 
-        const items = {name,img, price, quantity, supplierName};
+        const items = {name,img, price, quantity, description, supplierName, email};
         
         const url = 'http://localhost:5000/plant';
         const res = await axios.post(url, {items})
