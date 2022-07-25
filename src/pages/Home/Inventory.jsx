@@ -9,6 +9,7 @@ const Inventory = () => {
     useEffect(()=> {
 
         const getItems = async() => {
+            
             const url = 'http://localhost:5000/plants';
 
             const {data} = await axios.get(url);

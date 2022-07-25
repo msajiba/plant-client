@@ -12,6 +12,8 @@ import Login from './pages/Auth/Login/Login';
 import Register from './pages/Auth/Register/Register';
 import AddNewInventory from './pages/ManageInvenotry/AddNewInventory';
 import RequireAuth from './pages/Auth/RequireAuth/RequireAuth';
+import NotFound from './pages/NotFound/NotFound';
+import UpdateInventoryItem from './pages/ManageInvenotry/UpdateInventoryItem';
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
       <Header> </Header>
     
       <Routes>
+
+        <Route path='/' element={<Home />}></Route>
         <Route path='/home' element={<Home />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/register' element={<Register />}></Route>
@@ -33,6 +37,14 @@ function App() {
           </RequireAuth>
         }></Route>
       
+        <Route path='/itemUpdate/:updateId' element={
+          <RequireAuth>
+              <UpdateInventoryItem> </UpdateInventoryItem>
+          </RequireAuth>
+        }></Route>
+        
+        <Route path='*' element={<NotFound />}></Route>
+
       </Routes>
       
 

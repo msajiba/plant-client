@@ -32,6 +32,8 @@ const AddNewInventory = () => {
         console.log(res);
         toast('Inventory item add successful');
         
+        e.target.reset();
+        
     }
 
     return (
