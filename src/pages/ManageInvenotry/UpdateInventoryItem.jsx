@@ -1,17 +1,19 @@
 import axios from 'axios';
 import React, { useEffect, useState }from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 import {Card,Container, Row, Col} from 'react-bootstrap';
 import Button from '@mui/material/Button';
 
 const UpdateInventoryItem = () => {
 
+    const navigate = useNavigate();
     const {updateId} = useParams();
     const [plant, setPlant] = useState({});
     const [updatePlant, setUpdatePlant] = useState({});
 
 
     const {name, img, price, description, quantity, supplierName, _id} = plant;
+    
 
     useEffect(()=> {
 
@@ -27,21 +29,29 @@ const UpdateInventoryItem = () => {
 
     const handleDelivered = async() => {
         console.log('quantify increase');
-        const newQuantity = parseInt(quantity -1) ;
+        
+        if(quantity <=0 ){
+            return quantity;
+        }
 
-        const url = `http://localhost:5000/plant/${updateId}`;
-        const {data} = await axios.put(url, {newQuantity});
-        setUpdatePlant(data.plant);
+        else{
+        const newQuantity = parseInt(quantity -1) 
+
+            const url = `http://localhost:5000/plant/${updateId}`;
+            const {data} = await axios.put(url, {newQuantity});
+            setUpdatePlant(data.plant);
+        }
+       
     
     };
 
     const handleAddQuantify = async(e) => {
         e.preventDefault();
         const inputQuantity = e.target.quantity.value;
-        const newQuantity = parseInt(quantity) + parseInt(inputQuantity);
+        const newQuantity = quantity + parseInt(inputQuantity);
         
         if(inputQuantity === '' || inputQuantity <= 0){
-            return alert('please add quantity')
+            return alert('Please Input valid quantity number')
         }
         else{
             const url = `http://localhost:5000/plant/${updateId}`;
@@ -55,7 +65,6 @@ const UpdateInventoryItem = () => {
     }
     
    
-
     
 
     return (
@@ -63,7 +72,16 @@ const UpdateInventoryItem = () => {
             <Row className=''>
                 <Col>
                        <div className='w-50 mx-auto my-5'>
-                                <h3 className='text-center text-info'> {updateId}</h3>
+                                
+                                        <div className="text-end">
+                                            <Button 
+                                                onClick={()=> navigate('/manage-inventory')}
+                                                variant="contained"> 
+                                                Manage Inventory 
+                                             </Button> 
+                                        </div>
+                                 
+
                                 <Card className='mt-2'>
                                     <Card.Img style={{height:'350px'}} className='w-100 img-fluid' variant="top" src={img} />
                                     <Card.Body>
@@ -75,7 +93,7 @@ const UpdateInventoryItem = () => {
                                             <h6 > SupplierName: {supplierName} </h6>
                                                 <div className="text-end">
                                                     <h5 className='text-info'> Quantity : {quantity} </h5>
-                                                    
+
                                                     <Button 
                                                             onClick={handleDelivered}
                                                             size="small">Delivered
@@ -100,7 +118,6 @@ const UpdateInventoryItem = () => {
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>
-                            
                        </div>
                 </Col>
             </Row>

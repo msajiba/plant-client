@@ -14,6 +14,8 @@ import AddNewInventory from './pages/ManageInvenotry/AddNewInventory';
 import RequireAuth from './pages/Auth/RequireAuth/RequireAuth';
 import NotFound from './pages/NotFound/NotFound';
 import UpdateInventoryItem from './pages/ManageInvenotry/UpdateInventoryItem';
+import ManageInventoryItem from './pages/ManageInvenotry/ManageInventoryItem';
+import MyInventoryItems from './pages/ManageInvenotry/MyInventoryItems';
 
 
 function App() {
@@ -26,24 +28,36 @@ function App() {
     
       <Routes>
 
-        <Route path='/' element={<Home />}></Route>
-        <Route path='/home' element={<Home />}></Route>
-        <Route path='/login' element={<Login />}></Route>
-        <Route path='/register' element={<Register />}></Route>
+          <Route path='/' element={<Home />}></Route>
+          <Route path='/home' element={<Home />}></Route>
+          <Route path='/login' element={<Login />}></Route>
+          <Route path='/register' element={<Register />}></Route>
 
-        <Route path='/inventory-add' element={
-          <RequireAuth>
-            <AddNewInventory> </AddNewInventory>
-          </RequireAuth>
-        }></Route>
-      
-        <Route path='/itemUpdate/:updateId' element={
-          <RequireAuth>
-              <UpdateInventoryItem> </UpdateInventoryItem>
-          </RequireAuth>
-        }></Route>
+          <Route path='/inventory-add' element={
+            <RequireAuth>
+              <AddNewInventory> </AddNewInventory>
+            </RequireAuth>
+          }></Route>
         
-        <Route path='*' element={<NotFound />}></Route>
+          <Route path='/itemUpdate/:updateId' element={
+            <RequireAuth>
+                <UpdateInventoryItem> </UpdateInventoryItem>
+            </RequireAuth>
+          }></Route>
+          
+          <Route path='/manage-inventory' element={
+            <RequireAuth>
+                <ManageInventoryItem />
+            </RequireAuth>
+          }></Route>
+
+          <Route path='/my-items' element={
+            <RequireAuth>
+                <MyInventoryItems />
+            </RequireAuth>
+          }></Route>
+          
+          <Route path='*' element={<NotFound />}></Route>
 
       </Routes>
       

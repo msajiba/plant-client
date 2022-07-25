@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
 import auth from '../../Firebase/Firebase-init';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Loading from '../Shared/Loading/Loading';
 
 const AddNewInventory = () => {
 
@@ -22,6 +23,10 @@ const AddNewInventory = () => {
     const [supplierName, setSupplierName] = useState('')
    
 
+    if(!user){
+        return <Loading />
+    }
+
     const handleAddItem = async(e) =>{
         e.preventDefault();
 
@@ -31,7 +36,7 @@ const AddNewInventory = () => {
         const res = await axios.post(url, {items})
         console.log(res);
         toast('Inventory item add successful');
-        
+
         e.target.reset();
         
     }
