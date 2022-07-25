@@ -57,7 +57,7 @@ const Register = () => {
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
                     <Box sx={{marginTop: 8,display: 'flex',flexDirection: 'column',alignItems: 'center',}}>
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
@@ -74,7 +74,7 @@ const Register = () => {
                     
                                 <p className='text-danger'> {error?.message} </p>
                                 <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                                    Sign In
+                                    Register
                                 </Button>
                                 
                                 <Grid container>

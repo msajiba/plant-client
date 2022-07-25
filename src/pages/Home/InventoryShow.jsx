@@ -14,7 +14,7 @@ const InventoryShow = ({item}) => {
                 <Card.Img className='w-100 img-fluid' variant="top" src={img} />
                 <Card.Body>
                     <Card.Title>{name} <small className='text-danger'>${price} </small> </Card.Title>
-                    <Card.Text>
+                    <Card.Text className='text-start'>
                         {description}
                     </Card.Text>
                     <Card.Text className='text-start'>

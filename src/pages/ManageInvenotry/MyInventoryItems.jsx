@@ -48,7 +48,8 @@ const MyInventoryItems = () => {
         <Container>
             <Row>
                 <Col> 
-                        <div className="text-end mt-5">
+                        <div className="mt-5 d-flex justify-content-between align-items-center">
+                            <h4 className='d-block border p-1 rounded bg-white'> {items.length} </h4>
                             <Button 
                                 onClick={()=>navigate('/inventory-add')}
                                 variant="contained" 
@@ -56,11 +57,13 @@ const MyInventoryItems = () => {
                                 Add New 
                             </Button>
                         </div>
-                    <Table striped bordered hover size="sm">
+
+                    <Table striped bordered hover size="sm" responsive>
                             <thead>
                                 <tr className='text-dark bg-info text-center '>
                                     <th className='py-3'> PICTURE </th>
                                     <th className='py-3'> ITEM NAME </th>
+                                    <th className='py-3'> EMAIL </th>
                                     <th className='py-3'> SUPPLIER NAME </th>
                                     <th className='py-3'> PRICE </th>
                                     <th className='py-3'> QUANTITY </th>
