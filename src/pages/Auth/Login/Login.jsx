@@ -12,20 +12,45 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import auth from '../../../Firebase/Firebase-init';
+import {useNavigate, useLocation} from 'react-router-dom';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import Loading from '../../Shared/Loading/Loading';
+
 
 
 const theme = createTheme();
 
 const Login = () => {
 
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
+
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+      ] = useSignInWithEmailAndPassword(auth);
+
+    if(loading){
+        return <Loading />
+    };
+
+    if(user){
+        navigate(from, {replace: true});
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
-        });
-      };
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+
+        signInWithEmailAndPassword(email,password);
+
+    };
+
     
     return (
         <div>
@@ -47,10 +72,8 @@ const Login = () => {
                                             name="password" label="Password" 
                                             type="password" id="password" 
                                             autoComplete="current-password"/>
-                                <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                                />
+
+                                <p className='text-danger'> {error?.message} </p>
 
                                 <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                                     Sign In
@@ -63,9 +86,11 @@ const Login = () => {
                                     </Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                    </Link>
+                                    <p  className='text-primary fs-6'
+                                        style={{cursor:'pointer'}}
+                                        onClick={()=> navigate('/register')}>
+                                            <small>Don't have an account? Sign Up </small>
+                                    </p>
                                 </Grid>
                                 </Grid>
                             </Box>

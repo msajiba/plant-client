@@ -12,7 +12,8 @@ const Inventory = () => {
             const url = 'http://localhost:5000/plants';
 
             const {data} = await axios.get(url);
-            setItems(data.slice(0,5));
+            setItems(data);
+            
         };
         getItems();
 

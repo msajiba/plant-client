@@ -13,6 +13,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import auth from '../../../Firebase/Firebase-init';
+import Loading from '../../Shared/Loading/Loading';
 
 
 const theme = createTheme();
@@ -20,15 +23,33 @@ const theme = createTheme();
 const Register = () => {
 
     const navigate = useNavigate();
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+      ] = useCreateUserWithEmailAndPassword(auth);
     
+    if(loading){
+        return <Loading />
+    };
+
+    if(user){
+        navigate('/login');
+        console.log(user);
+    }
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
-        });
-      };
+        
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+        createUserWithEmailAndPassword(email, password);
+    };
+
+    
+     
     
     return (
         <div>
@@ -50,20 +71,19 @@ const Register = () => {
                                             name="password" label="Password" 
                                             type="password" id="password" 
                                             autoComplete="current-password"/>
-                                <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                                />
-
+                    
+                                <p className='text-danger'> {error?.message} </p>
                                 <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                                     Sign In
                                 </Button>
                                 
                                 <Grid container>
                                 <Grid item>
-                                    <Link to="/login" variant="body2">
-                                    {"You have an account? Login"}
-                                    </Link>
+                                    <p className='text-primary fs-6'
+                                        style={{cursor:'pointer'}}
+                                      onClick={()=> navigate('/login')}>
+                                        <small> Don't have an account? Sign Up </small>
+                                    </p>
                                 </Grid>
                                 </Grid>
                             </Box>

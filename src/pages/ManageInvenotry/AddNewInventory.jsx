@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import {Container} from 'react-bootstrap';
 import Button from '@mui/material/Button';
+import { toast } from 'react-toastify';
 
 const AddNewInventory = () => {
 
@@ -15,11 +17,15 @@ const AddNewInventory = () => {
     const [supplierName, setSupplierName] = useState('')
    
 
-    const handleAddItem = e =>{
+    const handleAddItem = async(e) =>{
         e.preventDefault();
 
         const items = {name,img, price, quantity, supplierName};
-        console.log(items);
+        
+        const url = 'http://localhost:5000/plant';
+        const res = await axios.post(url, {items})
+        console.log(res);
+        toast('Inventory item add successful');
         
     }
 
