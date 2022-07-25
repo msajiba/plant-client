@@ -7,9 +7,9 @@ import Button from '@mui/material/Button';
 const UpdateInventoryItem = () => {
 
     const {updateId} = useParams();
-
     const [plant, setPlant] = useState({});
     const [updatePlant, setUpdatePlant] = useState({});
+
 
     const {name, img, price, description, quantity, supplierName, _id} = plant;
 
@@ -35,9 +35,27 @@ const UpdateInventoryItem = () => {
     
     };
 
-    const handleAddQuantify = (e) => {
+    const handleAddQuantify = async(e) => {
+        e.preventDefault();
+        const inputQuantity = e.target.quantity.value;
+        const newQuantity = parseInt(quantity) + parseInt(inputQuantity);
+        
+        if(inputQuantity === '' || inputQuantity <= 0){
+            return alert('please add quantity')
+        }
+        else{
+            const url = `http://localhost:5000/plant/${updateId}`;
+            const {data} = await axios.put(url, {newQuantity});
+            setUpdatePlant(data.plant);
+            e.target.reset();
+        }
 
+        
+        
     }
+    
+   
+
     
 
     return (
@@ -56,17 +74,28 @@ const UpdateInventoryItem = () => {
                                         <Card.Text className='text-start'>
                                             <h6 > SupplierName: {supplierName} </h6>
                                                 <div className="text-end">
-                                                    <h5> Quantity :{quantity} </h5>
+                                                    <h5 className='text-info'> Quantity : {quantity} </h5>
+                                                    
                                                     <Button 
                                                             onClick={handleDelivered}
                                                             size="small">Delivered
                                                     </Button>
 
-                                                    <Button 
-                                                        
-                                                            size="small">Form
-                                                    </Button>
+                                                        <form onSubmit={handleAddQuantify} 
+                                                                className='d-flex justify-content-end align-items-center'>
 
+                                                            <input style={{width:'50px'}} 
+                                                                className='border rounded text-center'
+                                                                placeholder='0'
+                                                                type="number" name="quantity"/>
+                                                            
+                                                            <Button 
+                                                                    type="submit"         
+                                                                    size="small">Add 
+                                                            </Button> 
+
+                                                        </form>
+                                            
                                                 </div>
                                         </Card.Text>
                                     </Card.Body>
