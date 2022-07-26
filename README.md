@@ -1,6 +1,6 @@
 # plant-house-client
 
-### This is a Warehouse Management System Web Ppplication.
+### This is a Warehouse Management System Web Application.
 
 
 [Project Demo](https://plant-assignment.web.app/)
