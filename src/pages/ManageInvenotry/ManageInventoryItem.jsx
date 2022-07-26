@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import auth from '../../Firebase/Firebase-init';
 import InventoryItemShow from './InventoryItemShow';
 import {useNavigate} from 'react-router-dom';
+import AddIcon from '@mui/icons-material/Add';
 
 
 
@@ -58,7 +59,7 @@ const ManageInventoryItem = () => {
                                 onClick={()=>navigate('/inventory-add')}
                                 variant="contained" 
                                 color="info"> 
-                                Add New 
+                                <AddIcon /> Add New 
                             </Button>
                         </div>
                     <Table striped bordered hover size="sm" res>

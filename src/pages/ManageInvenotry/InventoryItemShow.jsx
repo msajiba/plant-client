@@ -1,5 +1,6 @@
 import { Button } from '@mui/material';
 import React from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const InventoryItemShow = ({item, handleDeleteItem}) => {
 
@@ -20,7 +21,7 @@ const InventoryItemShow = ({item, handleDeleteItem}) => {
                     <Button
                         onClick={()=>handleDeleteItem(_id)} 
                         variant="outlined" color="error">
-                            Delete
+                         <DeleteIcon />   Delete
                     </Button>
                 </td>
             </tr>

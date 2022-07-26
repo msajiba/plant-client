@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import auth from '../../Firebase/Firebase-init';
 import InventoryItemShow from './InventoryItemShow';
 import {useNavigate} from 'react-router-dom';
+import AddIcon from '@mui/icons-material/Add';
 
 const MyInventoryItems = () => {
 
@@ -20,8 +21,17 @@ const MyInventoryItems = () => {
         const getItems = async() => {
             const email = user.email;
             const url = `http://localhost:5000/allPlants?email=${email}`;
-            const {data} = await axios.get(url);
-            setItems(data);
+            try{
+                const {data} = await axios.get(url, {
+                    headers : {
+                        authorization : `Bearer ${localStorage.getItem('accessToken')}`
+                    }
+                });
+                setItems(data);
+            }
+            catch(error){
+                console.log(error.response);
+            }
         };
         getItems();
 
@@ -54,7 +64,7 @@ const MyInventoryItems = () => {
                                 onClick={()=>navigate('/inventory-add')}
                                 variant="contained" 
                                 color="info"> 
-                                Add New 
+                               <AddIcon /> Add New 
                             </Button>
                         </div>
 

@@ -60,7 +60,7 @@ const Register = () => {
                         <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
                             <LockOutlinedIcon />
                         </Avatar>
-                        <Typography component="h1" variant="h5">
+                        <Typography component="div" variant="h5">
                             Register
                         </Typography>
                             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>

@@ -44,7 +44,7 @@ const AddNewInventory = () => {
     return (
         <Container className='shadow rounded p-5 mt-5'>
         
-            <Typography variant="h6" gutterBottom className='text-center'> 
+            <Typography variant="div" gutterBottom className='text-center'> 
                 Add New Inventory Item
             </Typography>
                    <form onSubmit={handleAddItem}>

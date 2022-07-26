@@ -16,6 +16,7 @@ import auth from '../../../Firebase/Firebase-init';
 import {useNavigate, useLocation} from 'react-router-dom';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import Loading from '../../Shared/Loading/Loading';
+import axios from 'axios';
 
 
 
@@ -42,12 +43,23 @@ const Login = () => {
         navigate(from, {replace: true});
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async(event) => {
         event.preventDefault();
         const email = event.target.email.value;
         const password = event.target.password.value;
 
-        signInWithEmailAndPassword(email,password);
+       await signInWithEmailAndPassword(email,password);
+
+        try{
+            const url = 'http://localhost:5000/login';
+            const {data} = await axios.post(url, {email});
+            if(data.accessToken){
+                localStorage.setItem('accessToken', data.accessToken);
+            }
+        }
+        catch(error){
+            console.log(error);
+        }
 
     };
 
@@ -61,7 +73,7 @@ const Login = () => {
                         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                             <LockOutlinedIcon />
                         </Avatar>
-                        <Typography component="h1" variant="h5">
+                        <Typography component="div" variant="div">
                             Sign in
                         </Typography>
                             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
