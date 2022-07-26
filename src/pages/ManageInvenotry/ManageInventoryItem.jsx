@@ -13,6 +13,7 @@ import Loading from '../Shared/Loading/Loading';
 
 
 
+
 const ManageInventoryItem = () => {
 
     const navigate = useNavigate();
@@ -20,6 +21,8 @@ const ManageInventoryItem = () => {
     const [countItem, setCountItem] = useState(0);
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(5);
+
+
 
     //GET ALL PLANTS
     useEffect(()=> {
@@ -36,6 +39,8 @@ const ManageInventoryItem = () => {
         getItems();
 
     },[page, size]);
+
+    
 
     //GET COUNT 
     useEffect(()=> {
@@ -90,7 +95,7 @@ const ManageInventoryItem = () => {
                                 <AddIcon /> Add New 
                             </Button>
                         </div>
-                    <Table striped bordered hover size="sm" res>
+                    <Table striped bordered hover size="sm" responsive>
                             <thead>
                                 <tr className='text-dark bg-info text-center '>
                                     <th className='py-3'> PICTURE </th>

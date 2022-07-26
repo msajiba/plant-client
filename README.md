@@ -1,21 +1,23 @@
 # plant-house-client
-*Project Demo* 
 
-[Demos](https://plant-assignment.web.app/)
+### This is a Warehouse Management System Web Ppplication.
 
 
-## uses library and technology
+[Project Demo](https://plant-assignment.web.app/)
+
+
+## Uses library and technology
 - Vite-React
 - React-Bootstrap
 - React-Metarial UI
-- Data fetch by axios
-- React-RouterDom
-- Express
+- axios
+- React-Routerdom
+- Express.js
 - MongoDb
 
 ### Operation
 1. CRUD Operation
-2. JWT authentication
+2. JWT authentication implement just for My Item page
 3. Pagination
 
 ### Hosting

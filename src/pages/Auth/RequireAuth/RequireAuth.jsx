@@ -14,7 +14,10 @@ const RequireAuth = ({children}) => {
     const [sendEmailVerification, sending, error] = useSendEmailVerification(auth);
 
     if(!user){
-        return <Navigate to='/login' state={{ from : location}} replace> </Navigate>
+        return <>
+            <Loading />
+            <Navigate to='/login' state={{ from : location}} replace> </Navigate>
+        </>
     }
 
     if(sending){
