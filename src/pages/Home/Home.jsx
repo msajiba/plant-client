@@ -7,11 +7,11 @@ import Inventory from './Inventory';
 
 const Home = () => {
     return (
-        <Container>
+        <>
            <Banner> </Banner>
            <Inventory> </Inventory>  
            <MenuListComposition />  
-        </Container>
+        </>
     );
 };
 

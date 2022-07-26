@@ -17,18 +17,40 @@ const ManageInventoryItem = () => {
     const [user] = useAuthState(auth);
     const navigate = useNavigate();
     const [items, setItems] = useState([]);
+    const [countItem, setCountItem] = useState(0);
+    const [page, setPage] = useState(0);
+    const [size, setSize] = useState(5);
 
+    //GET ALL PLANTS
     useEffect(()=> {
-
         const getItems = async() => {
-            const email = user.email;
-            const url = `http://localhost:5000/plants`;
-            const {data} = await axios.get(url);
-            setItems(data);
+            const url = `http://localhost:5000/plants?page=${page}&size=${size}`;
+            try{
+                const {data} = await axios.get(url);
+                setItems(data);
+            }
+            catch(error){
+                console.log(error);
+            }
         };
         getItems();
 
-    },[user]);
+    },[page, size]);
+
+    //GET COUNT 
+    useEffect(()=> {
+        const getCount = async () =>{
+            const url = 'http://localhost:5000/plantCount';
+            const {data} = await axios.get(url);
+            const count = data.count;
+            const pages = Math.ceil(count/10);
+            setCountItem(pages);
+        }
+        getCount();
+
+    }, []);
+
+
 
 
     const handleDeleteItem = async(id) => {
@@ -85,6 +107,25 @@ const ManageInventoryItem = () => {
                 
                             </tbody>
                     </Table>
+
+                    <div className="text-end">
+                        {
+                            [...Array(countItem).keys()]
+                            .map(number => <button
+                                                className={page === number ? 'text-danger px-2' : 'mx-2 px-2'}
+                                                onClick ={()=>{setPage(number)}}> 
+                                            {number +1} 
+                                            </button> )
+                        }
+
+                        {size}
+                        <select onChange={(e)=>setSize(e.target.value)} className='mx-2'>
+                            <option value="5" selected >5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                        </select>
+                    </div>
+
                 </Col>
             </Row>
         </Container>
