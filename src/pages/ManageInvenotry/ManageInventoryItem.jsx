@@ -9,12 +9,12 @@ import auth from '../../Firebase/Firebase-init';
 import InventoryItemShow from './InventoryItemShow';
 import {useNavigate} from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
+import Loading from '../Shared/Loading/Loading';
 
 
 
 const ManageInventoryItem = () => {
 
-    const [user] = useAuthState(auth);
     const navigate = useNavigate();
     const [items, setItems] = useState([]);
     const [countItem, setCountItem] = useState(0);
@@ -24,13 +24,13 @@ const ManageInventoryItem = () => {
     //GET ALL PLANTS
     useEffect(()=> {
         const getItems = async() => {
-            const url = `http://localhost:5000/plants?page=${page}&size=${size}`;
+            const url = `https://plants-house.herokuapp.com/plants?page=${page}&size=${size}`;
             try{
                 const {data} = await axios.get(url);
                 setItems(data);
             }
             catch(error){
-                console.log(error);
+                console.log(error.response);
             }
         };
         getItems();
@@ -40,7 +40,7 @@ const ManageInventoryItem = () => {
     //GET COUNT 
     useEffect(()=> {
         const getCount = async () =>{
-            const url = 'http://localhost:5000/plantCount';
+            const url = 'https://plants-house.herokuapp.com/plantCount';
             const {data} = await axios.get(url);
             const count = data.count;
             const pages = Math.ceil(count/10);
@@ -52,19 +52,25 @@ const ManageInventoryItem = () => {
 
 
 
-
     const handleDeleteItem = async(id) => {
 
         const process = window.confirm('Are you sure delete item');
 
         if(process){
 
-            const url = `http://localhost:5000/delete-plant/${id}`;
-            const {data} = await axios.delete(url);
+            const url = `https://plants-house.herokuapp.com/delete-plant/${id}`;
             
-            const remaining = items.filter(item => item._id !== id);
-            setItems(remaining);
-            toast.error('Item delete successful');
+            try{
+                const {data} = await axios.delete(url);
+                const remaining = items.filter(item => item._id !== id);
+                setItems(remaining);
+                toast.error('Item delete successful');
+            }
+            catch(error){
+                if(error.response.status === 403 || error.response.status ===401){
+                    navigate('/login')
+               }
+            }
 
         };
     };
@@ -100,9 +106,10 @@ const ManageInventoryItem = () => {
 
                                 {
                                     items.map(item => <InventoryItemShow 
+                                                                    key={item._id}
                                                                     handleDeleteItem={handleDeleteItem}
                                                                     item={item}
-                                                                    key={item._id} />)
+                                                                    />)
                                 }
                 
                             </tbody>

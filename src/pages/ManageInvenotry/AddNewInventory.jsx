@@ -32,7 +32,7 @@ const AddNewInventory = () => {
 
         const items = {name,img, price, quantity, description, supplierName, email};
         
-        const url = 'http://localhost:5000/plant';
+        const url = 'https://plants-house.herokuapp.com/plant';
         const res = await axios.post(url, {items})
         console.log(res);
         toast('Inventory item add successful');

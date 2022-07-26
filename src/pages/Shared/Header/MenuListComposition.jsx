@@ -88,7 +88,7 @@ export default function MenuListComposition() {
                             <MenuItem onClick={handleClose}> {user?.email} </MenuItem>
                             <MenuItem onClick={handleClose}>Profile</MenuItem>
                             <MenuItem onClick={handleClose}>My account</MenuItem>
-                            <MenuItem onClick={()=> signOut(auth)}>Logout</MenuItem>
+                            <MenuItem onClick={()=> signOut(auth)} className='text-danger'>Logout</MenuItem>
                         </MenuList>
                         </ClickAwayListener>
                     </Paper>

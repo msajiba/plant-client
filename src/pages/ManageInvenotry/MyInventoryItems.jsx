@@ -20,7 +20,7 @@ const MyInventoryItems = () => {
 
         const getItems = async() => {
             const email = user.email;
-            const url = `http://localhost:5000/allPlants?email=${email}`;
+            const url = `https://plants-house.herokuapp.com/allPlants?email=${email}`;
             try{
                 const {data} = await axios.get(url, {
                     headers : {
@@ -44,7 +44,7 @@ const MyInventoryItems = () => {
 
         if(process){
 
-            const url = `http://localhost:5000/delete-plant/${id}`;
+            const url = `https://plants-house.herokuapp.com/delete-plant/${id}`;
             const {data} = await axios.delete(url);
             
             const remaining = items.filter(item => item._id !== id);

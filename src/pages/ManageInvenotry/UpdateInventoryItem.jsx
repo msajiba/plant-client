@@ -19,7 +19,7 @@ const UpdateInventoryItem = () => {
 
             const getPlant = async() => {
 
-                const ulr = `http://localhost:5000/plant/${updateId}`;
+                const ulr = `https://plants-house.herokuapp.com/plant/${updateId}`;
                 const {data} = await axios.get(ulr);
                 setPlant(data);
             };
@@ -37,7 +37,7 @@ const UpdateInventoryItem = () => {
         else{
         const newQuantity = parseInt(quantity -1) 
 
-            const url = `http://localhost:5000/plant/${updateId}`;
+            const url = `https://plants-house.herokuapp.com/plant/${updateId}`;
             const {data} = await axios.put(url, {newQuantity});
             setUpdatePlant(data.plant);
         }
@@ -54,7 +54,7 @@ const UpdateInventoryItem = () => {
             return alert('Please Input valid quantity number')
         }
         else{
-            const url = `http://localhost:5000/plant/${updateId}`;
+            const url = `https://plants-house.herokuapp.com/plant/${updateId}`;
             const {data} = await axios.put(url, {newQuantity});
             setUpdatePlant(data.plant);
             e.target.reset();

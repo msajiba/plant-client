@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,9 +14,10 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import auth from '../../../Firebase/Firebase-init';
 import {useNavigate, useLocation} from 'react-router-dom';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import Loading from '../../Shared/Loading/Loading';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 
@@ -24,6 +25,7 @@ const theme = createTheme();
 
 const Login = () => {
 
+    const [restEmail, setResetEmail] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
@@ -35,7 +37,11 @@ const Login = () => {
         error,
       ] = useSignInWithEmailAndPassword(auth);
 
-    if(loading){
+    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
+
+
+
+    if(loading || sending){
         return <Loading />
     };
 
@@ -51,7 +57,7 @@ const Login = () => {
        await signInWithEmailAndPassword(email,password);
 
         try{
-            const url = 'http://localhost:5000/login';
+            const url = 'https://plants-house.herokuapp.com/login';
             const {data} = await axios.post(url, {email});
             if(data.accessToken){
                 localStorage.setItem('accessToken', data.accessToken);
@@ -62,6 +68,7 @@ const Login = () => {
         }
 
     };
+
 
     
     return (
@@ -78,6 +85,7 @@ const Login = () => {
                         </Typography>
                             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                                 <TextField margin="normal" required fullWidth 
+                                            onChange={(e)=>setResetEmail(e.target.value)}
                                             id="email" label="Email Address"
                                             name="email" autoComplete="email"autoFocus />
                                 <TextField margin="normal" required fullWidth 
@@ -93,9 +101,16 @@ const Login = () => {
                                 
                                 <Grid container>
                                 <Grid item xs>
-                                    <Link href="#" variant="body2">
-                                    Forgot password?
-                                    </Link>
+                                    <p
+                                        style={{cursor:'pointer'}}
+                                        className='text-info'
+                                        onClick={async () => {
+                                        await sendPasswordResetEmail(restEmail);
+                                        toast('Sent email');
+                                        }}
+                                        >
+                                        Reset password
+                                    </p>
                                 </Grid>
                                 <Grid item>
                                     <p  className='text-primary fs-6'

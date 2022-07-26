@@ -82,7 +82,7 @@ const Register = () => {
                                     <p className='text-primary fs-6'
                                         style={{cursor:'pointer'}}
                                       onClick={()=> navigate('/login')}>
-                                        <small> Don't have an account? Sign Up </small>
+                                        <small> You have an Account ? Please Login </small>
                                     </p>
                                 </Grid>
                                 </Grid>
